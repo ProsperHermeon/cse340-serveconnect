@@ -1,0 +1,24 @@
+<%- include('partials/header', { title }) %>
+
+<section class="page-head">
+  <h1 class="section-title"><%= title %></h1>
+  <p class="section-lead">
+    Open opportunities you can join right now. Each one tells you who is hosting,
+    when it happens, and what to expect.
+  </p>
+</section>
+
+<section class="card-grid">
+  <% projects.forEach((project) => { %>
+    <article class="card">
+      <div class="card-body">
+        <span class="tag"><%= project.category %></span>
+        <h2 class="card-title"><%= project.title %></h2>
+        <p class="card-meta"><%= project.organization %> &middot; <%= project.date %></p>
+        <p class="card-text"><%= project.description %></p>
+      </div>
+    </article>
+  <% }); %>
+</section>
+
+<%- include('partials/footer') %>

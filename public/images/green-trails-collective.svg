@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" role="img" aria-label="Green Trails Collective">
+  <rect width="400" height="220" fill="#123f28"/>
+  <g fill="#1a5d3a">
+    <path d="M60 170 L110 70 L160 170 Z"/>
+    <path d="M150 170 L210 55 L270 170 Z"/>
+    <path d="M250 170 L300 80 L350 170 Z"/>
+  </g>
+  <g fill="#f4f7f4" opacity="0.9">
+    <path d="M195 82 L210 55 L225 82 Z"/>
+    <path d="M97 92 L110 70 L123 92 Z"/>
+  </g>
+  <circle cx="320" cy="55" r="20" fill="#f4a11e"/>
+  <path d="M40 170 Q200 158 360 170" fill="none" stroke="#f4a11e" stroke-width="3" stroke-dasharray="6 8"/>
+  <text x="200" y="200" text-anchor="middle" font-family="Sora, sans-serif" font-size="17" font-weight="700" fill="#ffffff">Green Trails Collective</text>
+</svg>

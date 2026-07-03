@@ -1,0 +1,22 @@
+<%- include('partials/header', { title }) %>
+
+<section class="page-head">
+  <h1 class="section-title"><%= title %></h1>
+  <p class="section-lead">
+    Every service project on ServeConnect falls into one of these four areas.
+    Pick the one that fits how you want to help.
+  </p>
+</section>
+
+<section class="card-grid">
+  <% categories.forEach((category) => { %>
+    <article class="card category-card">
+      <div class="card-body">
+        <h2 class="card-title"><%= category.name %></h2>
+        <p class="card-text"><%= category.description %></p>
+      </div>
+    </article>
+  <% }); %>
+</section>
+
+<%- include('partials/footer') %>

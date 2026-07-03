@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" role="img" aria-label="BrightStart Tutoring">
+  <rect width="400" height="220" fill="#1a5d3a"/>
+  <circle cx="200" cy="88" r="70" fill="#123f28" opacity="0.55"/>
+  <g transform="translate(200 90)">
+    <path d="M-46 -6 L0 -26 L46 -6 L0 14 Z" fill="#f4a11e"/>
+    <path d="M0 14 L-46 -6 V6 L0 26 L46 6 V-6 Z" fill="#f4f7f4"/>
+    <line x1="46" y1="-6" x2="46" y2="24" stroke="#f4a11e" stroke-width="3"/>
+    <circle cx="46" cy="26" r="4" fill="#f4a11e"/>
+  </g>
+  <text x="200" y="185" text-anchor="middle" font-family="Sora, sans-serif" font-size="17" font-weight="700" fill="#ffffff">BrightStart Tutoring</text>
+</svg>
