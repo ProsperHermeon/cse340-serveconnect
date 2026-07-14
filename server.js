@@ -2,65 +2,102 @@
 // server.js  —  ServeConnect application entry point
 // ---------------------------------------------------------------------------
 
+// IMPORTANT: this must be the FIRST import.
+// ES module imports are evaluated in order, top to bottom, BEFORE any code in
+// this file's body runs. src/models/db.js reads process.env.DB_URL the moment it
+// is imported, so the .env file has to already be loaded by then. Importing
+// 'dotenv/config' first guarantees that. Calling dotenv.config() further down in
+// the file body would run too late, and the pool would be built with an
+// undefined connection string.
+import 'dotenv/config';
+
 import express from 'express';
-import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import {
-  getOrganizations,
-  getProjects,
-  getCategories
-} from './models/siteData.js';
-
-// Load variables from .env into process.env (PORT, etc.).
-dotenv.config();
+import { testConnection } from './src/models/db.js';
+import { getAllOrganizations } from './src/models/organizations.js';
+import { getAllProjects } from './src/models/projects.js';
+import { getAllCategories } from './src/models/categories.js';
 
 // ES modules do not provide __dirname/__filename, so we rebuild them from the
-// module URL. We need an absolute path to point Express at /views and /public.
+// module URL. We need absolute paths to point Express at /src/views and /public.
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-// Render injects its own PORT; locally we fall back to 3000 from .env.
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
+const NODE_ENV = process.env.NODE_ENV || 'production';
 
 // --- View engine ---------------------------------------------------------
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src/views'));
 
 // --- Static assets -------------------------------------------------------
 // Serves everything in /public at the site root, so /css/styles.css and
-// /images/*.svg resolve automatically.
+// /images/*.png resolve automatically.
 app.use(express.static(path.join(__dirname, 'public')));
 
 // --- Routes --------------------------------------------------------------
 app.get('/', async (req, res) => {
-  res.render('index', { title: 'Home' });
+    const title = 'Home';
+    res.render('index', { title });
 });
 
-app.get('/organizations', async (req, res) => {
-  const organizations = await getOrganizations();
-  res.render('organizations', { title: 'Organizations', organizations });
+app.get('/organizations', async (req, res, next) => {
+    try {
+        const organizations = await getAllOrganizations();
+        const title = 'Our Partner Organizations';
+
+        res.render('organizations', { title, organizations });
+    } catch (error) {
+        next(error);
+    }
 });
 
-app.get('/projects', async (req, res) => {
-  const projects = await getProjects();
-  res.render('projects', { title: 'Service Projects', projects });
+app.get('/projects', async (req, res, next) => {
+    try {
+        const projects = await getAllProjects();
+        const title = 'Service Projects';
+
+        res.render('projects', { title, projects });
+    } catch (error) {
+        next(error);
+    }
 });
 
-app.get('/categories', async (req, res) => {
-  const categories = await getCategories();
-  res.render('categories', { title: 'Service Project Categories', categories });
+app.get('/categories', async (req, res, next) => {
+    try {
+        const categories = await getAllCategories();
+        const title = 'Service Project Categories';
+
+        res.render('categories', { title, categories });
+    } catch (error) {
+        next(error);
+    }
 });
 
 // --- 404 fallback --------------------------------------------------------
-// Any request that did not match a route above lands here.
+// No path, so it catches any request the routes above did not match.
 app.use((req, res) => {
-  res.status(404).render('404', { title: 'Page Not Found' });
+    res.status(404).render('404', { title: 'Page Not Found' });
+});
+
+// --- Error handler -------------------------------------------------------
+// Express identifies this as the error handler by its four parameters. Anything
+// passed to next(error) above lands here instead of hanging the request.
+app.use((err, req, res, next) => {
+    console.error('Unhandled error:', err);
+    res.status(500).render('500', { title: 'Server Error' });
 });
 
 // --- Start server --------------------------------------------------------
-app.listen(port, () => {
-  console.log(`ServeConnect is running at http://localhost:${port}`);
+app.listen(PORT, async () => {
+    try {
+        await testConnection();
+        console.log(`Server is running at http://127.0.0.1:${PORT}`);
+        console.log(`Environment: ${NODE_ENV}`);
+    } catch (error) {
+        console.error('Error connecting to the database:', error);
+    }
 });

@@ -1,0 +1,32 @@
+<%- include('partials/header', { title: title }) %>
+
+<section class="page-head">
+  <h1 class="section-title"><%= title %></h1>
+  <p class="section-lead">
+    These local nonprofits sponsor every service project on ServeConnect. Get to
+    know the teams you will be working alongside.
+  </p>
+</section>
+
+<section class="card-grid">
+  <% organizations.forEach((organization) => { %>
+    <article class="card">
+      <img
+        class="card-image"
+        src="/images/<%= organization.logo_filename %>"
+        alt="Logo for <%= organization.name %>"
+        width="400"
+        height="220"
+      />
+      <div class="card-body">
+        <h2 class="card-title"><%= organization.name %></h2>
+        <p class="card-text"><%= organization.description %></p>
+        <p class="card-meta">
+          <a href="mailto:<%= organization.contact_email %>"><%= organization.contact_email %></a>
+        </p>
+      </div>
+    </article>
+  <% }); %>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,10 +1,10 @@
-<%- include('partials/header', { title }) %>
+<%- include('partials/header', { title: title }) %>
 
 <section class="page-head">
   <h1 class="section-title"><%= title %></h1>
   <p class="section-lead">
-    Every service project on ServeConnect falls into one of these four areas.
-    Pick the one that fits how you want to help.
+    Every service project on ServeConnect falls into one or more of these
+    categories.
   </p>
 </section>
 
@@ -13,7 +13,6 @@
     <article class="card category-card">
       <div class="card-body">
         <h2 class="card-title"><%= category.name %></h2>
-        <p class="card-text"><%= category.description %></p>
       </div>
     </article>
   <% }); %>

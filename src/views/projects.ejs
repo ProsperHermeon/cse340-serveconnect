@@ -1,0 +1,38 @@
+<%- include('partials/header', { title: title }) %>
+
+<section class="page-head">
+  <h1 class="section-title"><%= title %></h1>
+  <p class="section-lead">
+    Open opportunities you can join right now, each one sponsored by a partner
+    organization.
+  </p>
+</section>
+
+<section class="project-list">
+  <ul class="project-items">
+    <% projects.forEach((project) => { %>
+      <%
+        // pg returns a DATE column as a JavaScript Date object, so it can be
+        // formatted directly. toLocaleDateString turns 2026-08-08 into
+        // "August 8, 2026" instead of showing a raw timestamp to the user.
+        const projectDate = new Date(project.project_date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          timeZone: 'UTC'
+        });
+      %>
+      <li class="project-item">
+        <p class="project-line">
+          <span class="project-date"><%= projectDate %>:</span>
+          <span class="project-title"><%= project.title %></span>
+          <span class="project-org">(<%= project.organization_name %>)</span>
+        </p>
+        <p class="project-desc"><%= project.description %></p>
+        <p class="project-location"><%= project.location %></p>
+      </li>
+    <% }); %>
+  </ul>
+</section>
+
+<%- include('partials/footer') %>
