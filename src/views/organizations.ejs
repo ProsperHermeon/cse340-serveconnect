@@ -3,27 +3,28 @@
 <section class="page-head">
   <h1 class="section-title"><%= title %></h1>
   <p class="section-lead">
-    These local nonprofits sponsor every service project on ServeConnect. Get to
-    know the teams you will be working alongside.
+    These local nonprofits sponsor every service project on ServeConnect. Select
+    an organization to see its details and projects.
   </p>
 </section>
 
 <section class="card-grid">
   <% organizations.forEach((organization) => { %>
     <article class="card">
-      <img
-        class="card-image"
-        src="/images/<%= organization.logo_filename %>"
-        alt="Logo for <%= organization.name %>"
-        width="400"
-        height="220"
-      />
+      <a class="card-media-link" href="/organization/<%= organization.organization_id %>">
+        <img
+          class="card-image"
+          src="/images/<%= organization.logo_filename %>"
+          alt="Logo for <%= organization.name %>"
+          width="400"
+          height="220"
+        />
+      </a>
       <div class="card-body">
-        <h2 class="card-title"><%= organization.name %></h2>
+        <h2 class="card-title">
+          <a href="/organization/<%= organization.organization_id %>"><%= organization.name %></a>
+        </h2>
         <p class="card-text"><%= organization.description %></p>
-        <p class="card-meta">
-          <a href="mailto:<%= organization.contact_email %>"><%= organization.contact_email %></a>
-        </p>
       </div>
     </article>
   <% }); %>

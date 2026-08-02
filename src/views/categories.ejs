@@ -3,8 +3,8 @@
 <section class="page-head">
   <h1 class="section-title"><%= title %></h1>
   <p class="section-lead">
-    Every service project on ServeConnect falls into one or more of these
-    categories.
+    Every service project falls into one or more of these categories. Select a
+    category to see the projects in it.
   </p>
 </section>
 
@@ -12,7 +12,9 @@
   <% categories.forEach((category) => { %>
     <article class="card category-card">
       <div class="card-body">
-        <h2 class="card-title"><%= category.name %></h2>
+        <h2 class="card-title">
+          <a href="/category/<%= category.category_id %>"><%= category.name %></a>
+        </h2>
       </div>
     </article>
   <% }); %>

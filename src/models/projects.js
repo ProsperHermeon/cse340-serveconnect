@@ -1,35 +1,64 @@
 import db from './db.js';
 
 /**
- * Retrieves every service project along with the name of the organization
- * that sponsors it.
+ * Retrieves the next `numberOfProjects` upcoming service projects.
  *
- * The project table only stores organization_id, so the organization's name
- * lives in a different table. An INNER JOIN follows that foreign key and pulls
- * the matching organization row alongside each project, letting one query
- * return columns from both tables.
+ * "Upcoming" means the project date is today or later (project_date >=
+ * CURRENT_DATE), ordered soonest-first, and capped with LIMIT. The limit is a
+ * parameter ($1) rather than hard-coded, so the same function can return any
+ * number of projects - the controller decides how many.
  *
- * organization.name is aliased to organization_name so it does not collide with
- * project.title and is unambiguous in the returned row objects.
+ * The JOIN is required because the project table only stores organization_id;
+ * the organization's name lives in a different table. o.name is aliased to
+ * organization_name to avoid colliding with the project's own columns.
  */
-const getAllProjects = async () => {
+const getUpcomingProjects = async (numberOfProjects) => {
     const query = `
         SELECT p.project_id,
                p.title,
                p.description,
                p.location,
-               p.project_date,
+               p.project_date AS date,
                o.organization_id,
                o.name AS organization_name
         FROM public.project p
         JOIN public.organization o
             ON o.organization_id = p.organization_id
-        ORDER BY p.project_date;
+        WHERE p.project_date >= CURRENT_DATE
+        ORDER BY p.project_date ASC
+        LIMIT $1;
     `;
 
-    const result = await db.query(query);
+    const result = await db.query(query, [numberOfProjects]);
 
     return result.rows;
 };
 
-export { getAllProjects };
+/**
+ * Retrieves a single service project by its id, along with the sponsoring
+ * organization's name (via the JOIN). The id is parameterized ($1) to prevent
+ * SQL injection.
+ *
+ * Returns one project object, or undefined if no row matches.
+ */
+const getProjectDetails = async (id) => {
+    const query = `
+        SELECT p.project_id,
+               p.title,
+               p.description,
+               p.location,
+               p.project_date AS date,
+               o.organization_id,
+               o.name AS organization_name
+        FROM public.project p
+        JOIN public.organization o
+            ON o.organization_id = p.organization_id
+        WHERE p.project_id = $1;
+    `;
+
+    const result = await db.query(query, [id]);
+
+    return result.rows[0];
+};
+
+export { getUpcomingProjects, getProjectDetails };

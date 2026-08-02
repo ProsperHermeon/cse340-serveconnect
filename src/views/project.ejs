@@ -1,0 +1,36 @@
+<%- include('partials/header', { title: title }) %>
+
+<%
+  const projectDate = new Date(project.date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC'
+  });
+%>
+
+<section class="detail">
+  <p class="crumb"><a href="/projects">&larr; All projects</a></p>
+
+  <h1 class="section-title"><%= project.title %></h1>
+
+  <p class="detail-meta">
+    Sponsored by
+    <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>
+  </p>
+
+  <ul class="fact-list">
+    <li><span class="fact-label">Date</span><span class="fact-value"><%= projectDate %></span></li>
+    <li><span class="fact-label">Location</span><span class="fact-value"><%= project.location %></span></li>
+  </ul>
+
+  <p class="detail-lead"><%= project.description %></p>
+
+  <div class="tag-row">
+    <% categories.forEach((category) => { %>
+      <a class="tag" href="/category/<%= category.category_id %>"><%= category.name %></a>
+    <% }); %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
