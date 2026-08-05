@@ -32,3 +32,13 @@
     </div>
   </header>
   <main id="main" class="container">
+    <% const messages = flash(); %>
+    <% Object.keys(messages).forEach(type => { %>
+      <% if (messages[type].length > 0) { %>
+        <div class="flash-stack">
+          <% messages[type].forEach(msg => { %>
+            <div class="alert <%= type %>" role="alert"><%= msg %></div>
+          <% }); %>
+        </div>
+      <% } %>
+    <% }); %>

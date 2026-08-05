@@ -2,10 +2,7 @@
 
 <%
   const projectDate = new Date(project.date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'UTC'
+    year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
   });
 %>
 
@@ -13,7 +10,6 @@
   <p class="crumb"><a href="/projects">&larr; All projects</a></p>
 
   <h1 class="section-title"><%= project.title %></h1>
-
   <p class="detail-meta">
     Sponsored by
     <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>
@@ -31,6 +27,11 @@
       <a class="tag" href="/category/<%= category.category_id %>"><%= category.name %></a>
     <% }); %>
   </div>
+
+  <p class="detail-actions">
+    <a class="btn btn-ghost" href="/edit-project/<%= project.project_id %>">Edit project</a>
+    <a class="btn btn-ghost" href="/assign-categories/<%= project.project_id %>">Edit categories</a>
+  </p>
 </section>
 
 <%- include('partials/footer') %>

@@ -1,0 +1,32 @@
+<%- include('partials/header', { title: title }) %>
+
+<%
+  const assignedIds = assignedCategories.map((c) => c.category_id);
+%>
+
+<section class="form-page">
+  <p class="crumb"><a href="/project/<%= project.project_id %>">&larr; Back to project</a></p>
+  <h1 class="section-title"><%= title %></h1>
+  <p class="section-lead">Choose the categories that apply to <strong><%= project.title %></strong>.</p>
+
+  <form action="/assign-categories/<%= project.project_id %>" method="POST" class="form-card">
+    <fieldset class="checkbox-group">
+      <legend>Categories</legend>
+      <% categories.forEach((category) => { %>
+        <label class="checkbox-row">
+          <input
+            type="checkbox"
+            name="categoryIds"
+            value="<%= category.category_id %>"
+            <%= assignedIds.includes(category.category_id) ? 'checked' : '' %>
+          />
+          <span><%= category.name %></span>
+        </label>
+      <% }); %>
+    </fieldset>
+
+    <button type="submit" class="btn btn-primary">Save Categories</button>
+  </form>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,7 +1,10 @@
 <%- include('partials/header', { title: title }) %>
 
 <section class="page-head">
-  <h1 class="section-title"><%= title %></h1>
+  <div class="page-head-row">
+    <h1 class="section-title"><%= title %></h1>
+    <a class="btn btn-primary" href="/new-project">Add a new project</a>
+  </div>
   <p class="section-lead">
     The next few opportunities you can join, each sponsored by a partner
     organization. Select a project for full details.
@@ -13,10 +16,7 @@
     <% projects.forEach((project) => { %>
       <%
         const projectDate = new Date(project.date).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          timeZone: 'UTC'
+          year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
         });
       %>
       <li class="project-item">

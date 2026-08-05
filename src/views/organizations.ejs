@@ -1,7 +1,10 @@
 <%- include('partials/header', { title: title }) %>
 
 <section class="page-head">
-  <h1 class="section-title"><%= title %></h1>
+  <div class="page-head-row">
+    <h1 class="section-title"><%= title %></h1>
+    <a class="btn btn-primary" href="/new-organization">Add a new organization</a>
+  </div>
   <p class="section-lead">
     These local nonprofits sponsor every service project on ServeConnect. Select
     an organization to see its details and projects.
@@ -12,13 +15,8 @@
   <% organizations.forEach((organization) => { %>
     <article class="card">
       <a class="card-media-link" href="/organization/<%= organization.organization_id %>">
-        <img
-          class="card-image"
-          src="/images/<%= organization.logo_filename %>"
-          alt="Logo for <%= organization.name %>"
-          width="400"
-          height="220"
-        />
+        <img class="card-image" src="/images/<%= organization.logo_filename %>"
+             alt="Logo for <%= organization.name %>" width="400" height="220" />
       </a>
       <div class="card-body">
         <h2 class="card-title">

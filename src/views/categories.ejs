@@ -1,7 +1,10 @@
 <%- include('partials/header', { title: title }) %>
 
 <section class="page-head">
-  <h1 class="section-title"><%= title %></h1>
+  <div class="page-head-row">
+    <h1 class="section-title"><%= title %></h1>
+    <a class="btn btn-primary" href="/new-category">Add a new category</a>
+  </div>
   <p class="section-lead">
     Every service project falls into one or more of these categories. Select a
     category to see the projects in it.
@@ -15,6 +18,7 @@
         <h2 class="card-title">
           <a href="/category/<%= category.category_id %>"><%= category.name %></a>
         </h2>
+        <p class="card-actions"><a href="/edit-category/<%= category.category_id %>">Edit</a></p>
       </div>
     </article>
   <% }); %>

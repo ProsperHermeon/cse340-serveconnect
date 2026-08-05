@@ -1,0 +1,17 @@
+<%- include('partials/header', { title: title }) %>
+
+<section class="form-page">
+  <p class="crumb"><a href="/categories">&larr; All categories</a></p>
+  <h1 class="section-title"><%= title %></h1>
+
+  <form action="/new-category" method="POST" class="form-card">
+    <div class="form-group">
+      <label for="name">Category Name</label>
+      <input type="text" id="name" name="name" required maxlength="100" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Category</button>
+  </form>
+</section>
+
+<%- include('partials/footer') %>

@@ -364,3 +364,89 @@ img { max-width: 100%; display: block; }
     scroll-behavior: auto !important;
   }
 }
+
+/* --- Flash messages ------------------------------------------------------ */
+.flash-stack { margin: 1.25rem 0 0; display: grid; gap: 0.6rem; }
+.alert {
+  padding: 0.85rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.alert.success { color: #14532d; background: #d9f2e3; border-color: #b6e3c8; }
+.alert.error   { color: #7a1f2b; background: #fbe0e3; border-color: #f3c2c8; }
+.alert.warning { color: #7a5600; background: #fdf0d0; border-color: #f6dfa2; }
+.alert.info    { color: #0c4a5e; background: #d4eef4; border-color: #b3e0ea; }
+
+/* --- Forms --------------------------------------------------------------- */
+.form-page { padding-block: 2.5rem 3.5rem; max-width: 620px; }
+.form-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.75rem;
+  margin-top: 1.5rem;
+}
+.form-group { margin-bottom: 1.25rem; display: grid; gap: 0.4rem; }
+.form-group label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.65rem 0.8rem;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+  width: 100%;
+}
+.form-group input:focus-visible,
+.form-group textarea:focus-visible,
+.form-group select:focus-visible {
+  outline: none;
+  border-color: var(--pine);
+  box-shadow: 0 0 0 3px rgba(26, 93, 58, 0.15);
+}
+.form-group textarea { resize: vertical; }
+
+/* --- Checkbox group (assign categories) ---------------------------------- */
+.checkbox-group {
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 1.1rem 1.2rem;
+  margin: 0 0 1.25rem;
+}
+.checkbox-group legend {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0 0.4rem;
+}
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0;
+  font-weight: 500;
+  cursor: pointer;
+}
+.checkbox-row input { width: 18px; height: 18px; accent-color: var(--pine); }
+
+/* --- Page-head row + actions --------------------------------------------- */
+.page-head-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.detail-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.25rem; }
+.card-actions { margin: 0.6rem 0 0; font-size: 0.9rem; font-weight: 500; }
