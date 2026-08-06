@@ -3,7 +3,9 @@
 <section class="page-head">
   <div class="page-head-row">
     <h1 class="section-title"><%= title %></h1>
-    <a class="btn btn-primary" href="/new-organization">Add a new organization</a>
+    <% if (user && user.role_name === 'admin') { %>
+      <a class="btn btn-primary" href="/new-organization">Add a new organization</a>
+    <% } %>
   </div>
   <p class="section-lead">
     These local nonprofits sponsor every service project on ServeConnect. Select

@@ -1,8 +1,9 @@
 # Dependencies
 node_modules/
 
-# Environment variables (never commit database credentials)
+# Environment variables (never commit secrets)
 .env
+.env.example
 
 # Logs
 npm-debug.log*
@@ -11,4 +12,3 @@ npm-debug.log*
 # OS files
 .DS_Store
 Thumbs.db
-.env.example

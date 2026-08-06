@@ -28,10 +28,12 @@
     <% }); %>
   </div>
 
-  <p class="detail-actions">
-    <a class="btn btn-ghost" href="/edit-project/<%= project.project_id %>">Edit project</a>
-    <a class="btn btn-ghost" href="/assign-categories/<%= project.project_id %>">Edit categories</a>
-  </p>
+  <% if (user && user.role_name === 'admin') { %>
+    <p class="detail-actions">
+      <a class="btn btn-ghost" href="/edit-project/<%= project.project_id %>">Edit project</a>
+      <a class="btn btn-ghost" href="/assign-categories/<%= project.project_id %>">Edit categories</a>
+    </p>
+  <% } %>
 </section>
 
 <%- include('partials/footer') %>

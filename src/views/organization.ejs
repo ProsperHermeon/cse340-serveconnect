@@ -12,9 +12,11 @@
       <p class="detail-meta">
         <a href="mailto:<%= organization.contact_email %>"><%= organization.contact_email %></a>
       </p>
-      <p class="detail-actions">
-        <a class="btn btn-ghost" href="/edit-organization/<%= organization.organization_id %>">Edit organization</a>
-      </p>
+      <% if (user && user.role_name === 'admin') { %>
+        <p class="detail-actions">
+          <a class="btn btn-ghost" href="/edit-organization/<%= organization.organization_id %>">Edit organization</a>
+        </p>
+      <% } %>
     </div>
   </div>
 </section>

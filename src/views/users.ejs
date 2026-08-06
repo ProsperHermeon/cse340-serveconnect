@@ -1,0 +1,29 @@
+<%- include('partials/header', { title: title }) %>
+
+<section class="page-head">
+  <h1 class="section-title"><%= title %></h1>
+  <p class="section-lead">All accounts registered on ServeConnect and their assigned role.</p>
+</section>
+
+<section class="table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach((registeredUser) => { %>
+        <tr>
+          <td><%= registeredUser.name %></td>
+          <td><%= registeredUser.email %></td>
+          <td><span class="role-badge <%= registeredUser.role_name %>"><%= registeredUser.role_name %></span></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</section>
+
+<%- include('partials/footer') %>

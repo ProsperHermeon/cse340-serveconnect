@@ -3,7 +3,9 @@
 <section class="page-head">
   <div class="page-head-row">
     <h1 class="section-title"><%= title %></h1>
-    <a class="btn btn-primary" href="/new-category">Add a new category</a>
+    <% if (user && user.role_name === 'admin') { %>
+      <a class="btn btn-primary" href="/new-category">Add a new category</a>
+    <% } %>
   </div>
   <p class="section-lead">
     Every service project falls into one or more of these categories. Select a
@@ -18,7 +20,9 @@
         <h2 class="card-title">
           <a href="/category/<%= category.category_id %>"><%= category.name %></a>
         </h2>
-        <p class="card-actions"><a href="/edit-category/<%= category.category_id %>">Edit</a></p>
+        <% if (user && user.role_name === 'admin') { %>
+          <p class="card-actions"><a href="/edit-category/<%= category.category_id %>">Edit</a></p>
+        <% } %>
       </div>
     </article>
   <% }); %>

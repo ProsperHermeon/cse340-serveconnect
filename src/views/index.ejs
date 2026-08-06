@@ -10,6 +10,9 @@
   <div class="hero-actions">
     <a class="btn btn-primary" href="/projects">Browse projects</a>
     <a class="btn btn-ghost" href="/organizations">Meet the organizations</a>
+    <% if (isLoggedIn) { %>
+      <a class="btn btn-ghost" href="/dashboard">My Dashboard</a>
+    <% } %>
   </div>
 </section>
 

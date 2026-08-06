@@ -1,0 +1,19 @@
+<%- include('partials/header', { title: title }) %>
+
+<section class="detail">
+  <h1 class="section-title">Dashboard</h1>
+  <p class="detail-lead">Welcome back, <strong><%= name %></strong>.</p>
+
+  <ul class="fact-list">
+    <li><span class="fact-label">Name</span><span class="fact-value"><%= name %></span></li>
+    <li><span class="fact-label">Email</span><span class="fact-value"><%= email %></span></li>
+  </ul>
+
+  <% if (user && user.role_name === 'admin') { %>
+    <p class="detail-actions">
+      <a class="btn btn-ghost" href="/users">View all registered users</a>
+    </p>
+  <% } %>
+</section>
+
+<%- include('partials/footer') %>

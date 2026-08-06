@@ -5,9 +5,11 @@
 
   <h1 class="section-title"><%= category.name %></h1>
   <p class="detail-lead">Service projects in the <%= category.name %> category.</p>
-  <p class="detail-actions">
-    <a class="btn btn-ghost" href="/edit-category/<%= category.category_id %>">Edit category</a>
-  </p>
+  <% if (user && user.role_name === 'admin') { %>
+    <p class="detail-actions">
+      <a class="btn btn-ghost" href="/edit-category/<%= category.category_id %>">Edit category</a>
+    </p>
+  <% } %>
 </section>
 
 <section class="detail-projects">

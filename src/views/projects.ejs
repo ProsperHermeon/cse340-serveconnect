@@ -3,7 +3,9 @@
 <section class="page-head">
   <div class="page-head-row">
     <h1 class="section-title"><%= title %></h1>
-    <a class="btn btn-primary" href="/new-project">Add a new project</a>
+    <% if (user && user.role_name === 'admin') { %>
+      <a class="btn btn-primary" href="/new-project">Add a new project</a>
+    <% } %>
   </div>
   <p class="section-lead">
     The next few opportunities you can join, each sponsored by a partner
