@@ -9,6 +9,7 @@
 -- always present after a rebuild.
 -- ============================================================================
 
+DROP TABLE IF EXISTS volunteer CASCADE;
 DROP TABLE IF EXISTS project_category CASCADE;
 DROP TABLE IF EXISTS project CASCADE;
 DROP TABLE IF EXISTS category CASCADE;
@@ -65,6 +66,21 @@ CREATE TABLE project_category (
         FOREIGN KEY (project_id) REFERENCES project (project_id) ON DELETE CASCADE,
     CONSTRAINT fk_project_category_category
         FOREIGN KEY (category_id) REFERENCES category (category_id) ON DELETE CASCADE
+);
+
+-- volunteer (JUNCTION TABLE: many-to-many between users and project)
+-- A user can volunteer for many projects; a project can have many volunteers.
+-- The composite primary key (user_id, project_id) makes each signup unique, so
+-- the same user cannot volunteer for the same project twice.
+CREATE TABLE volunteer (
+    user_id      INTEGER   NOT NULL,
+    project_id   INTEGER   NOT NULL,
+    signed_up_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT pk_volunteer PRIMARY KEY (user_id, project_id),
+    CONSTRAINT fk_volunteer_user
+        FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_volunteer_project
+        FOREIGN KEY (project_id) REFERENCES project (project_id) ON DELETE CASCADE
 );
 
 -- ===========================================================================
@@ -180,3 +196,15 @@ FROM (VALUES
 ) AS v(project_title, category_name)
 JOIN project  p ON p.title = v.project_title
 JOIN category c ON c.name  = v.category_name;
+
+
+-- --- Volunteer signups (demo data) -----------------------------------------
+INSERT INTO volunteer (user_id, project_id)
+SELECT u.user_id, p.project_id
+FROM (VALUES
+    ('jordan@example.com', 'Riverside Ramp Build'),
+    ('jordan@example.com', 'Community Garden Planting'),
+    ('riley@example.com',  'Food Pantry Sorting Day')
+) AS v(email, title)
+JOIN users   u ON u.email = v.email
+JOIN project p ON p.title = v.title;

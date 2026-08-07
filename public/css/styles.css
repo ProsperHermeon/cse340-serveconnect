@@ -494,3 +494,27 @@ img { max-width: 100%; display: block; }
 }
 .role-badge.admin { background: rgba(244, 161, 30, 0.16); color: #8a5600; }
 .role-badge.user  { background: rgba(26, 93, 58, 0.12); color: var(--pine); }
+
+/* --- Volunteer feature (W06) --------------------------------------------- */
+.volunteer-box {
+  margin-top: 1.75rem;
+  padding: 1.25rem 1.4rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--marigold);
+  border-radius: var(--radius);
+}
+.volunteer-status {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--pine);
+  margin: 0 0 0.75rem;
+}
+.volunteer-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.volunteer-item form { margin: 0; }
+.btn-small { padding: 0.45rem 0.9rem; font-size: 0.85rem; }

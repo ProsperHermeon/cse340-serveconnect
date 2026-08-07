@@ -8,6 +8,7 @@ import {
 } from '../models/projects.js';
 import { getCategoriesByProject } from '../models/categories.js';
 import { getAllOrganizations } from '../models/organizations.js';
+import { isUserVolunteering } from '../models/volunteers.js';
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 
@@ -63,8 +64,16 @@ const showProjectDetailsPage = async (req, res, next) => {
         }
 
         const categories = await getCategoriesByProject(id);
+
+        // If a user is logged in, find out whether they are already volunteering
+        // for this project so the view can show the correct link.
+        let isVolunteering = false;
+        if (req.session.user) {
+            isVolunteering = await isUserVolunteering(req.session.user.user_id, id);
+        }
+
         const title = project.title;
-        res.render('project', { title, project, categories });
+        res.render('project', { title, project, categories, isVolunteering });
     } catch (error) {
         next(error);
     }

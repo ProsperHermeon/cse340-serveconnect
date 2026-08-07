@@ -16,4 +16,37 @@
   <% } %>
 </section>
 
+<section class="detail-projects">
+  <h2 class="section-subtitle">Projects I'm volunteering for</h2>
+
+  <% if (volunteeredProjects.length === 0) { %>
+    <p class="empty">You have not volunteered for any projects yet. Browse the
+      <a href="/projects">service projects</a> to get started.</p>
+  <% } else { %>
+    <ul class="project-items">
+      <% volunteeredProjects.forEach((project) => { %>
+        <%
+          const projectDate = new Date(project.date).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
+          });
+        %>
+        <li class="project-item volunteer-item">
+          <div>
+            <p class="project-line">
+              <span class="project-date"><%= projectDate %>:</span>
+              <a class="project-title" href="/project/<%= project.project_id %>"><%= project.title %></a>
+              <span class="project-org">(<a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>)</span>
+            </p>
+            <p class="project-location"><%= project.location %></p>
+          </div>
+          <form action="/unvolunteer/<%= project.project_id %>" method="POST">
+            <input type="hidden" name="redirectTo" value="/dashboard" />
+            <button type="submit" class="btn btn-ghost btn-small">Remove</button>
+          </form>
+        </li>
+      <% }); %>
+    </ul>
+  <% } %>
+</section>
+
 <%- include('partials/footer') %>

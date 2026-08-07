@@ -40,6 +40,10 @@ import {
     showDashboard,
     showUsersPage
 } from './controllers/users.js';
+import {
+    volunteerForProject,
+    removeVolunteerFromProject
+} from './controllers/volunteers.js';
 
 const router = express.Router();
 
@@ -58,6 +62,10 @@ router.get('/logout', processLogout);
 // --- Protected pages -----------------------------------------------------
 router.get('/dashboard', requireLogin, showDashboard);
 router.get('/users', requireRole('admin'), showUsersPage);
+
+// --- Volunteering (logged-in users) --------------------------------------
+router.post('/volunteer/:projectId', requireLogin, volunteerForProject);
+router.post('/unvolunteer/:projectId', requireLogin, removeVolunteerFromProject);
 
 // --- Organizations -------------------------------------------------------
 router.get('/organizations', showOrganizationsPage);

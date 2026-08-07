@@ -28,6 +28,22 @@
     <% }); %>
   </div>
 
+  <% if (isLoggedIn) { %>
+    <div class="volunteer-box">
+      <% if (isVolunteering) { %>
+        <p class="volunteer-status">You are volunteering for this project.</p>
+        <form action="/unvolunteer/<%= project.project_id %>" method="POST">
+          <input type="hidden" name="redirectTo" value="/project/<%= project.project_id %>" />
+          <button type="submit" class="btn btn-ghost">Remove me as a volunteer</button>
+        </form>
+      <% } else { %>
+        <form action="/volunteer/<%= project.project_id %>" method="POST">
+          <button type="submit" class="btn btn-primary">Volunteer for this project</button>
+        </form>
+      <% } %>
+    </div>
+  <% } %>
+
   <% if (user && user.role_name === 'admin') { %>
     <p class="detail-actions">
       <a class="btn btn-ghost" href="/edit-project/<%= project.project_id %>">Edit project</a>
